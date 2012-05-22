@@ -7,13 +7,16 @@ var wkhtmltopdf = {
 		'darwin': '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf',
 		'linux': './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
-	};
+	},
+	flags = '-B 0 -L 0 -R 0 -T 0 -q --no-outline --disable-external-links';
+	
 
 var app = express.createServer(express.logger());
 
 app.configure(function(){
 	app.use(express.methodOverride());
-	app.use(express.static(__dirname + '/assets'));
+	app.use(express.static(__dirname + '/public'));
+	app.use('/assets', express.static(__dirname + '/assets'));
 });
 
 app.get('/', function(request, response) {
@@ -25,13 +28,14 @@ app.get('/api/:url?', function(request, response) {
 	if(url !== '' ){
 		var sha1_hash = crypto.createHash('sha1').update(url);
 		var hex = sha1_hash.digest('hex');
-		var child = exec(wkhtmltopdf[os.platform()]+' '+url+' ./assets/'+hex+'.pdf', function (error, stdout, stderr) {
+		var child = exec(wkhtmltopdf[os.platform()]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', function (error, stdout, stderr) {
 			if (error !== null) {
 				console.log('exec error: ' + error);
 			}else{
 				
 			}
-			response.send('<a href="/'+hex+'.pdf" target="_blank">open</a>');
+			//response.send('<a href="/assets/'+hex+'.pdf" target="_blank">open</a>');
+			response.redirect('/assets/'+hex+'.pdf');
 		});
 	}else{
 		response.send('Hello World! @'+os.platform());
