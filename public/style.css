@@ -1,6 +1,7 @@
 body{
 	background-image: url('tex2res5.png');
 	background-repeat: repeat;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 header{
 	margin-top: 100px;
@@ -10,9 +11,8 @@ header{
 	margin: auto;
 	box-shadow: 0px 10px 20px #000;
 	background-color: #eee;
-	font-family: 'Yanone Kaffeesatz', sans-serif;
 }
-h2{ text-align: center }
+h2{ text-align: center; margin-bottom:0px; }
 .main div{
 	margin:30px;
 	margin-top: 100px;
@@ -29,6 +29,18 @@ a:hover{
 	color: #801111;
 	text-decoration: none;
 }
+label{
+   font-family: 'Yanone Kaffeesatz', sans-serif;
+   font-size: 1.3em;
+   line-height: 1.6em;
+   margin-right: 10px;
+}
+.input-append{
+   margin-top: 20px;
+   text-align: center;
+   width:100%;
+}
+
 .ribbon {
   margin-left: 50%;
   left: -300px;

@@ -6,7 +6,7 @@
 	<title>wkhtmltopdf service</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
-	<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -25,18 +25,27 @@
 		<div>
 			<br/><br/><br/><br/><br/>
 			<h2>...just make pdf's easy.</h2>
+			<br/>
 			<p>Have you ever wondered that there is now easy-peasy web service to make pdf's in the cloud?</p>
 			<p>And the <a href="http://docraptor.com/" target="_blank">one</a> or <a href="http://pdfcrowd.com/html-to-pdf-api/" target="_blank">two</a> nice services out there are way to expensive?</p>
 			<p>Jeah? Just use <a href="http://code.google.com/p/wkhtmltopdf/" target="_blank">wkhtmltopdf</a> and relax<p>
 			<pre>
-GET /api/{{url}}
+__REQUEST__
+	GET /api/{{url}}
 
-{{url}} URL of the website you want converted as 
-URL encoded String
+	{{url}} URL of the website you want converted 
+	to PDF as URL encoded String
 
-RESPONSE
-Binary PDF Object
-			</pre>
+__RESPONSE__
+	Binary PDF Object		</pre>
+			<form class="form-inline hide">
+				<h2>You want to try it?</h2>
+				<p class="input-append">
+					<input class="span4" id="url" placeholder="Just try it!" type="text"><button 
+					class="btn btn-inverse" id="action" type="button">Go!</button>
+				</p>
+			</form>
+		
 			<footer>
 				&copy; 2012 <a href="http://www.con.sume.org" target="_blank">con.sume.org</a>
 			</footer>
@@ -44,11 +53,28 @@ Binary PDF Object
 	</div>
 
 
-	<script>
-	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="/jquery.shortcuts.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(document).shortcuts({
+				"ALT U": {
+					keys: [18, 85], desc: "Show URL Input.",
+					func: function() { 	$('.form-inline').slideDown() }
+				}
+			});
+			$('#url').val(document.location.href);
+			$('#action').click(function(){
+				var encoded = encodeURIComponent( $('#url').val() );
+				document.location.href = "/api/"+encoded;				
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		var _gaq=[['_setAccount','UA-4234390-6'],['_trackPageview']];
+		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+		s.parentNode.insertBefore(g,s)}(document,'script'));
 	</script>
 </body>
 </html>
