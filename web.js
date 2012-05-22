@@ -8,19 +8,14 @@ var wkhtmltopdf = {
 		'linux': './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
 	},
-	flags = '-B 0 -L 0 -R 0 -T 0 -q --no-outline --disable-external-links';
+	flags = '-B 0 -L 0 -R 0 -T 0 -q --no-outline --disable-external-links',
 	
-
-var app = express.createServer(express.logger());
+	app = express.createServer(express.logger());
 
 app.configure(function(){
 	app.use(express.methodOverride());
 	app.use(express.static(__dirname + '/public'));
 	app.use('/assets', express.static(__dirname + '/assets'));
-});
-
-app.get('/', function(request, response) {
-	response.send('Hello World!');
 });
 
 app.get('/api/:url?', function(request, response) {
@@ -31,6 +26,7 @@ app.get('/api/:url?', function(request, response) {
 		var child = exec(wkhtmltopdf[os.platform()]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', function (error, stdout, stderr) {
 			if (error !== null) {
 				console.log('exec error: ' + error);
+				response.send('exec error: '+ JSON.stringify(error));
 			}else{
 				
 			}
@@ -38,12 +34,11 @@ app.get('/api/:url?', function(request, response) {
 			response.redirect('/assets/'+hex+'.pdf');
 		});
 	}else{
-		response.send('Hello World! @'+os.platform());
+		response.redirect('/');
 	}
 });
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
-	console.log(os.platform());
 	console.log("Listening on " + port);
 });
