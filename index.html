@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>wkhtmltopdf-service by consumr</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/consumr/wkhtmltopdf-service">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>wkhtmltopdf-service</h1>
+            <h2>a heroku service for wkhtmltopdf</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/consumr/wkhtmltopdf-service/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/consumr/wkhtmltopdf-service/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>wkhtmltopdf</h1>
+
+<p><a href="https://github.com/todo" class="user-mention">@todo</a> write a README.md</p>
+
+<h1>Used Libraries &amp; Tools</h1>
+
+<ul>
+<li>Frontend
+
+<ul>
+<li>jQuery 1.7.2 <a href="http://jquery.com/">http://jquery.com/</a>
+</li>
+<li>jQuery Shortcuts <a href="http://github.com/ambethia/jquery-shortcuts">http://github.com/ambethia/jquery-shortcuts</a> </li>
+</ul>
+</li>
+<li>Backend
+
+<ul>
+<li>wkhtmltopdf 0.11.0 <a href="http://code.google.com/p/wkhtmltopdf/">http://code.google.com/p/wkhtmltopdf/</a>
+</li>
+<li>Express 2.5.6 <a href="http://expressjs.com/">http://expressjs.com/</a>
+</li>
+<li>jake 0.2.33 <a href="https://github.com/mde/jake">https://github.com/mde/jake</a>
+</li>
+</ul>
+</li>
+</ul><h1>Documentation</h1>
+
+<p>Documentation is generated with the awesome <a href="https://github.com/nevir/groc">groc</a>!
+You can find alle docs for this project in the folder "/doc"</p>
+
+<h1>package.json</h1>
+
+<pre><code>{
+    "name": "wkhtmltopdf-service",
+    "version": "0.5.0",
+    "engines": {
+        "node": "0.6.17",
+        "npm":  "1.1.9"
+    },
+    "dependencies": {
+        "express": "2.5.6",
+        "jake": "0.2.33"
+    }
+}
+</code></pre>
+
+<h1>wkhtmltopdf parameters</h1>
+
+<pre><code>Global Options:
+      --collate                       Collate when printing multiple copies
+                                      (default)
+      --no-collate                    Do not collate when printing multiple
+                                      copies
+      --cookie-jar &lt;path&gt;             Read and write cookies from and to the
+                                      supplied cookie jar file
+      --copies &lt;number&gt;               Number of copies to print into the pdf
+                                      file (default 1)
+  -d, --dpi &lt;dpi&gt;                     Change the dpi explicitly (this has no
+                                      effect on X11 based systems)
+  -H, --extended-help                 Display more extensive help, detailing
+                                      less common command switches
+  -g, --grayscale                     PDF will be generated in grayscale
+  -h, --help                          Display help
+      --htmldoc                       Output program html help
+      --image-dpi &lt;integer&gt;           When embedding images scale them down to
+                                      this dpi (default 600)
+      --image-quality &lt;integer&gt;       When jpeg compressing images use this
+                                      quality (default 94)
+  -l, --lowquality                    Generates lower quality pdf/ps. Useful to
+                                      shrink the result document space
+      --manpage                       Output program man page
+  -B, --margin-bottom &lt;unitreal&gt;      Set the page bottom margin (default 10mm)
+  -L, --margin-left &lt;unitreal&gt;        Set the page left margin (default 10mm)
+  -R, --margin-right &lt;unitreal&gt;       Set the page right margin (default 10mm)
+  -T, --margin-top &lt;unitreal&gt;         Set the page top margin (default 10mm)
+  -O, --orientation &lt;orientation&gt;     Set orientation to Landscape or Portrait
+                                      (default Portrait)
+      --output-format &lt;format&gt;        Specify an output format to use pdf or ps,
+                                      instead of looking at the extention of the
+                                      output filename
+      --page-height &lt;unitreal&gt;        Page height
+  -s, --page-size &lt;Size&gt;              Set paper size to: A4, Letter, etc.
+                                      (default A4)
+      --page-width &lt;unitreal&gt;         Page width
+      --no-pdf-compression            Do not use lossless compression on pdf
+                                      objects
+  -q, --quiet                         Be less verbose
+      --read-args-from-stdin          Read command line arguments from stdin
+      --readme                        Output program readme
+      --title &lt;text&gt;                  The title of the generated pdf file (The
+                                      title of the first document is used if not
+                                      specified)
+  -V, --version                       Output version information an exit
+
+Outline Options:
+      --dump-default-toc-xsl          Dump the default TOC xsl style sheet to
+                                      stdout
+      --dump-outline &lt;file&gt;           Dump the outline to a file
+      --outline                       Put an outline into the pdf (default)
+      --no-outline                    Do not put an outline into the pdf
+      --outline-depth &lt;level&gt;         Set the depth of the outline (default 4)
+
+Page Options:
+      --allow &lt;path&gt;                  Allow the file or files from the specified
+                                      folder to be loaded (repeatable)
+      --background                    Do print background (default)
+      --no-background                 Do not print background
+      --checkbox-checked-svg &lt;path&gt;   Use this SVG file when rendering checked
+                                      checkboxes
+      --checkbox-svg &lt;path&gt;           Use this SVG file when rendering unchecked
+                                      checkboxes
+      --cookie &lt;name&gt; &lt;value&gt;         Set an additional cookie (repeatable)
+      --custom-header &lt;name&gt; &lt;value&gt;  Set an additional HTTP header (repeatable)
+      --custom-header-propagation     Add HTTP headers specified by
+                                      --custom-header for each resource request.
+      --no-custom-header-propagation  Do not add HTTP headers specified by
+                                      --custom-header for each resource request.
+      --debug-javascript              Show javascript debugging output
+      --no-debug-javascript           Do not show javascript debugging output
+                                      (default)
+      --default-header                Add a default header, with the name of the
+                                      page to the left, and the page number to
+                                      the right, this is short for:
+                                      --header-left='[webpage]'
+                                      --header-right='[page]/[toPage]' --top 2cm
+                                      --header-line
+      --encoding &lt;encoding&gt;           Set the default text encoding, for input
+      --disable-external-links        Do not make links to remote web pages
+      --enable-external-links         Make links to remote web pages (default)
+      --disable-forms                 Do not turn HTML form fields into pdf form
+                                      fields (default)
+      --enable-forms                  Turn HTML form fields into pdf form fields
+      --images                        Do load or print images (default)
+      --no-images                     Do not load or print images
+      --disable-internal-links        Do not make local links
+      --enable-internal-links         Make local links (default)
+  -n, --disable-javascript            Do not allow web pages to run javascript
+      --enable-javascript             Do allow web pages to run javascript
+                                      (default)
+      --javascript-delay &lt;msec&gt;       Wait some milliseconds for javascript
+                                      finish (default 200)
+      --load-error-handling &lt;handler&gt; Specify how to handle pages that fail to
+                                      load: abort, ignore or skip (default
+                                      abort)
+      --disable-local-file-access     Do not allowed conversion of a local file
+                                      to read in other local files, unless
+                                      explecitily allowed with --allow
+      --enable-local-file-access      Allowed conversion of a local file to read
+                                      in other local files. (default)
+      --minimum-font-size &lt;int&gt;       Minimum font size
+      --exclude-from-outline          Do not include the page in the table of
+                                      contents and outlines
+      --include-in-outline            Include the page in the table of contents
+                                      and outlines (default)
+      --page-offset &lt;offset&gt;          Set the starting page number (default 0)
+      --password &lt;password&gt;           HTTP Authentication password
+      --disable-plugins               Disable installed plugins (default)
+      --enable-plugins                Enable installed plugins (plugins will
+                                      likely not work)
+      --post &lt;name&gt; &lt;value&gt;           Add an additional post field (repeatable)
+      --post-file &lt;name&gt; &lt;path&gt;       Post an additional file (repeatable)
+      --print-media-type              Use print media-type instead of screen
+      --no-print-media-type           Do not use print media-type instead of
+                                      screen (default)
+  -p, --proxy &lt;proxy&gt;                 Use a proxy
+      --radiobutton-checked-svg &lt;path&gt; Use this SVG file when rendering checked
+                                      radiobuttons
+      --radiobutton-svg &lt;path&gt;        Use this SVG file when rendering unchecked
+                                      radiobuttons
+      --run-script &lt;js&gt;               Run this additional javascript after the
+                                      page is done loading (repeatable)
+      --disable-smart-shrinking       Disable the intelligent shrinking strategy
+                                      used by WebKit that makes the pixel/dpi
+                                      ratio none constant
+      --enable-smart-shrinking        Enable the intelligent shrinking strategy
+                                      used by WebKit that makes the pixel/dpi
+                                      ratio none constant (default)
+      --stop-slow-scripts             Stop slow running javascripts (default)
+      --no-stop-slow-scripts          Do not Stop slow running javascripts
+      --disable-toc-back-links        Do not link from section header to toc
+                                      (default)
+      --enable-toc-back-links         Link from section header to toc
+      --user-style-sheet &lt;url&gt;        Specify a user style sheet, to load with
+                                      every page
+      --username &lt;username&gt;           HTTP Authentication username
+      --window-status &lt;windowStatus&gt;  Wait until window.status is equal to this
+                                      string before rendering page
+      --zoom &lt;float&gt;                  Use this zoom factor (default 1)
+</code></pre>
+
+<h1>Licence</h1>
+
+<p>Copyright (c) 2012, consumr
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+</ul><p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/consumr">consumr</a> can be found on <a href="https://github.com/consumr/wkhtmltopdf-service">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-4234390-6");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
