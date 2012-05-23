@@ -53,6 +53,11 @@ app.get('/api/:url?', function(request, response) {
 		response.redirect('/');
 	}
 });
+// blitz.io made me doing this
+app.get('/mu-3398791d-9410f6e1-1a6b44de-32a09019?', function(request, response) {
+	response.send('42');
+});
+
 // launch our server on the ENV Port or 3000...
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
