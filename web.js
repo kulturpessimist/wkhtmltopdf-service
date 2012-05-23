@@ -33,6 +33,8 @@ app.get('/api/:url?', function(request, response) {
 		var sha1_hash = crypto.createHash('sha1').update(url);
 		var hex = sha1_hash.digest('hex');
 		// lets exec the wkhtmltopdf command
+		// but first get a timestamp to messure the performance
+		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
 		var child = exec(wkhtmltopdf[os.platform()]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
 			function (error, stdout, stderr) {
@@ -43,6 +45,8 @@ app.get('/api/:url?', function(request, response) {
 					response.send('exec error: '+ JSON.stringify(error));
 				}else{
 					// ah, great it worked!
+					// how much time did we need? log it to console
+					console.log( '###', 'processing took', (new Date().getTime())-start_time, 'ms' );
 					// send the user/client to the asset
 					response.redirect('/assets/'+hex+'.pdf');
 				}
@@ -52,10 +56,6 @@ app.get('/api/:url?', function(request, response) {
 		// hmmm, no url? than go back to begin
 		response.redirect('/');
 	}
-});
-// blitz.io made me doing this
-app.get('/mu-3398791d-9410f6e1-1a6b44de-32a09019?', function(request, response) {
-	response.send('42');
 });
 
 // launch our server on the ENV Port or 3000...
