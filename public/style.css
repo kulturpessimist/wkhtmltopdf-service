@@ -38,10 +38,14 @@ label{
    line-height: 1.6em;
    margin-right: 10px;
 }
-.input-append{
+form p{
    margin-top: 10px;
    text-align: center;
    width:100%;
+}
+.param{
+   width: 40px;
+   margin-right: 10px;
 }
 /* ribbon */
 .ribbon {

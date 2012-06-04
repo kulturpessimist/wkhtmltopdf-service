@@ -36,11 +36,19 @@ __REQUEST__
 
 __RESPONSE__
 	Binary PDF Object		</pre>
-			<form class="form-inline hide">
+			
+			<form class="form-inline hide" id="theform" action="" method="post">
 				<h2>You want to try it?</h2>
+				<p>
+					<label>B</label><input value="0" name="B" class="param"/>
+					<label>L</label><input value="0" name="L" class="param"/>
+					<label>R</label><input value="0" name="R" class="param"/>
+					<label>T</label><input value="0" name="T" class="param"/>
+					<label>O</label><input value="Portrait" name="O" class="param"/>
+				</p>
 				<p class="input-append">
 					<input class="span4" id="url" placeholder="Just try it!" type="text"><button 
-					class="btn btn-inverse" id="action" type="button">Go!</button>
+							class="btn btn-inverse" id="action" type="button">Go!</button>			
 				</p>
 			</form>
 		
@@ -62,7 +70,9 @@ __RESPONSE__
 			$('#url').val(document.location.href);
 			$('#action').click(function(){
 				var encoded = encodeURIComponent( $('#url').val() );
-				document.location.href = "/api/"+encoded;				
+				//document.location.href = "/api/"+encoded;
+				$('#theform').attr('action', '/api/'+encoded);
+				$('#theform').submit();
 			});
 		});
 	</script>
