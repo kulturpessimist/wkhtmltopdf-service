@@ -1,6 +1,5 @@
 // _require_ all the libraries!
 var express = require('express'),
-	sprintf = require('sprintf').sprintf,
 	crypto	= require('crypto'),
 	exec	= require('child_process').exec,
 	os		= require('os');
@@ -11,6 +10,8 @@ var wkhtmltopdf = {
 		'linux':  './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
 	},
+	// on heroku we host 4 different versions of wkhtmltopdf
+	// on darwin we just use wkhtmltopdf.app
 	versions = {
 		'darwin':'',
 		'default': '.0.10.0_beta5',
@@ -49,6 +50,7 @@ app.get('/api/:url?', function(request, response) {
 		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
 		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
+			// heroku gives us 30 seconds, so we do it in 20 seconds
 			{ timeout: 20000, killSignal: 'SIGTERM' },
 			function (error, stdout, stderr) {
 				if (error !== null) {
@@ -75,8 +77,10 @@ app.get('/api/:url?', function(request, response) {
 app.post('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
 	console.log(request.body);
+	// no version support on darwin, but on linux
 	var version = (os.platform()=='darwin'?'darwin':request.body.version||'default');
 	// are any parameters provided?
+	// no escaping, but whatever...
 	var flags = request.body.parameters;
 	// do we have a url?
 	if(url !== '' ){
@@ -87,11 +91,9 @@ app.post('/api/:url?', function(request, response) {
 		// but first get a timestamp to messure the performance
 		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
-		console.log(  
-			wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf'	
-		);
-
 		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
+			// heroku gives us 30 seconds, so we do it in 20 seconds
+			{ timeout: 20000, killSignal: 'SIGTERM' },
 			function (error, stdout, stderr) {
 				if (error !== null) {
 					// is everything goes wrong!
