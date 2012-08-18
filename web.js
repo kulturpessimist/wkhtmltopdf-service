@@ -19,8 +19,6 @@ var wkhtmltopdf = {
 		'10': '.0.10.0_beta5',
 		'11': '.0.11.0rc1'
 	},
-	// some flags for nicer PDFs
-	pflags = '-B %(B)d -L %(L)d -R %(R)d -T %(T)d -O %(O)s -q --disable-external-links',
 	// a server with express... ah such a nice library!
 	app = express.createServer(express.logger());
 // _configure_ all the parameters!
@@ -35,10 +33,11 @@ app.configure(function(){
 	app.use(express.bodyParser());
 });
 // our namespace sould be api
-app.get('/api/:url/:version?', function(request, response) {
+app.get('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
-	var version = request.params.version || (os.platform()=='darwin'?'darwin':'default');
-	var flags = sprintf(pflags, {B:0, L:0, R:0, T:0, O:"Portrait"});
+	var version = (os.platform()=='darwin'?'darwin':'default');
+	// some flags for nicer PDFs
+	var flags = '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --disable-external-links';
 	// do we have a url?
 	if(url !== '' ){
 		// lets hash the url so we have a unique filename
@@ -49,6 +48,7 @@ app.get('/api/:url/:version?', function(request, response) {
 		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
 		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
+			{ timeout: 20000, killSignal: 'SIGTERM' },
 			function (error, stdout, stderr) {
 				if (error !== null) {
 					// is everything goes wrong!
@@ -74,16 +74,9 @@ app.get('/api/:url/:version?', function(request, response) {
 app.post('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
 	console.log(request.body);
+	var version = (os.platform()=='darwin'?'darwin':request.body.version||'default');
 	// are any parameters provided?
-	var version =  request.body.version || (os.platform()=='darwin'?'darwin':'default');
-	var B =  parseInt(request.body.B, 10) || 0;
-	var L =  parseInt(request.body.L, 10) || 0;
-	var R =  parseInt(request.body.R, 10) || 0;
-	var T =  parseInt(request.body.T, 10) || 0;
-	var O =  request.body.O || "Portrait";
-	O = (O!="Portrait" && O!="Landscape")?"Portrait":O;
-	var flags = sprintf(pflags, {B:B, L:L, R:R, T:T, O:O});
-	
+	var flags = request.body.parameters;
 	// do we have a url?
 	if(url !== '' ){
 		// lets hash the url so we have a unique filename
@@ -93,6 +86,10 @@ app.post('/api/:url?', function(request, response) {
 		// but first get a timestamp to messure the performance
 		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
+		console.log(  
+			wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf'	
+		);
+
 		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
 			function (error, stdout, stderr) {
 				if (error !== null) {

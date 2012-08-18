@@ -20,7 +20,7 @@
 		</div>
 	</header>
 	<div role="main" class="main">
-		<div>
+		<div class="top">
 			<br/><br/><br/><br/><br/>
 			<h2>...just make pdf's easy.</h2>
 			<br/>
@@ -39,17 +39,27 @@ __RESPONSE__
 			
 			<form class="form-inline hide" id="theform" action="" method="post">
 				<h2>You want to try it?</h2>
-				<p>
-					<label>B</label><input value="0" name="B" class="param"/>
-					<label>L</label><input value="0" name="L" class="param"/>
-					<label>R</label><input value="0" name="R" class="param"/>
-					<label>T</label><input value="0" name="T" class="param"/>
-					<label>O</label><input value="Portrait" name="O" class="param"/>
-				</p>
-				<p class="input-append">
-					<input class="span4" id="url" placeholder="Just try it!" type="text"><button 
-							class="btn btn-inverse" id="action" type="button">Go!</button>			
-				</p>
+					
+					<div class="input-prepend">
+						<span class="add-on">Parameters</span><input name="parameters" class="span4" type="text"
+						  value="-B 0 -L 0 -R 0 -T 0 -O Portrait -q --disable-external-links" />
+						<select class="" style="width:117px;" name="version">
+							<optgroup label="Version">
+								<option value="11">0.11.0rc1</option>
+								<option value="10" selected="selected">0.10.0_beta5</option>
+								<option value="099">0.9.9</option>
+								<option value="096">0.9.6</option>													
+							</optgroup>
+						</select>
+					</div>
+					<div class="input-prepend input-append">
+						<span class="add-on unified-label">URL</span><input 
+							class="span5" id="url" placeholder="Just try it!" type="text"><button 
+							class="btn btn-inverse ued-label" id="action" type="button">Go!</button>			
+					</div>
+	
+				</div>
+				
 			</form>
 		
 			<footer>
@@ -74,6 +84,10 @@ __RESPONSE__
 				$('#theform').attr('action', '/api/'+encoded);
 				$('#theform').submit();
 			});
+			
+			if( document.location.hash.indexOf('open-form') > -1){
+				$('.form-inline').slideDown();
+			}
 		});
 	</script>
 	<script type="text/javascript">

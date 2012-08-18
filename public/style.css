@@ -1,6 +1,5 @@
 @import url('bootstrap.min.css');
 @import url('http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
-
 body{
 	background-image: url('tex2res5.png');
 	background-repeat: repeat;
@@ -15,13 +14,13 @@ header{
 	box-shadow: 0px 10px 20px #000;
 	background-color: #eee;
 }
-h2{ text-align: center; margin-bottom:0px; }
-.main div{
+h2{ text-align: center; margin-bottom:10px; padding-top:20px; }
+.main .top{
 	margin:30px;
 	margin-top: 100px;
 }
 footer{
-	margin-top: 30px;
+	margin: 30px;
 	padding-bottom:20px;
 }
 a{
@@ -34,18 +33,15 @@ a:hover{
 }
 label{
    font-family: 'Yanone Kaffeesatz', sans-serif;
-   font-size: 1.3em;
-   line-height: 1.6em;
-   margin-right: 10px;
 }
-form p{
+.input-prepend{
+   margin-top: 4px;
+}
+.input-append{
    margin-top: 10px;
-   text-align: center;
-   width:100%;
 }
-.param{
-   width: 40px;
-   margin-right: 10px;
+.unified-label{
+   width:46px !important;
 }
 /* ribbon */
 .ribbon {
