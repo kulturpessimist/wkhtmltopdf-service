@@ -1,3 +1,6 @@
+@import url('bootstrap.min.css');
+@import url('http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
+
 body{
 	background-image: url('tex2res5.png');
 	background-repeat: repeat;
@@ -35,12 +38,16 @@ label{
    line-height: 1.6em;
    margin-right: 10px;
 }
-.input-append{
-   margin-top: 20px;
+form p{
+   margin-top: 10px;
    text-align: center;
    width:100%;
 }
-
+.param{
+   width: 40px;
+   margin-right: 10px;
+}
+/* ribbon */
 .ribbon {
   margin-left: 50%;
   left: -300px;
