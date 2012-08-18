@@ -12,14 +12,15 @@ var wkhtmltopdf = {
 		'linux2': './bin/wkhtmltopdf-amd64'
 	},
 	versions = {
-		'default': '',
+		'darwin':'',
+		'default': '.0.10.0_beta5',
 		'099': '.0.9.9',
 		'096': '.0.9.6',
 		'10': '.0.10.0_beta5',
-		'11': ''
+		'11': '.0.11.0rc1'
 	},
 	// some flags for nicer PDFs
-	pflags = '-B %(B)d -L %(L)d -R %(R)d -T %(T)d -O %(O)s -q --no-outline --disable-external-links',
+	pflags = '-B %(B)d -L %(L)d -R %(R)d -T %(T)d -O %(O)s -q --disable-external-links',
 	// a server with express... ah such a nice library!
 	app = express.createServer(express.logger());
 // _configure_ all the parameters!
@@ -36,7 +37,7 @@ app.configure(function(){
 // our namespace sould be api
 app.get('/api/:url/:version?', function(request, response) {
 	var url = request.params.url || '';
-	var version = request.params.version || 'default';
+	var version = request.params.version || (os.platform()=='darwin'?'darwin':'default');
 	var flags = sprintf(pflags, {B:0, L:0, R:0, T:0, O:"Portrait"});
 	// do we have a url?
 	if(url !== '' ){
@@ -74,6 +75,7 @@ app.post('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
 	console.log(request.body);
 	// are any parameters provided?
+	var version =  request.body.version || (os.platform()=='darwin'?'darwin':'default');
 	var B =  parseInt(request.body.B, 10) || 0;
 	var L =  parseInt(request.body.L, 10) || 0;
 	var R =  parseInt(request.body.R, 10) || 0;
@@ -91,7 +93,7 @@ app.post('/api/:url?', function(request, response) {
 		// but first get a timestamp to messure the performance
 		var start_time = new Date().getTime();
 		// this is where the magic happens... lol
-		var child = exec(wkhtmltopdf[os.platform()]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
+		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
 			function (error, stdout, stderr) {
 				if (error !== null) {
 					// is everything goes wrong!
