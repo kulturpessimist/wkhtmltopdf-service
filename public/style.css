@@ -34,6 +34,10 @@ a:hover{
 label{
    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
+pre{
+   height: 200px;
+   overflow: scroll;
+}
 .input-prepend{
    margin-top: 4px;
 }

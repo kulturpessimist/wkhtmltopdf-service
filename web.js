@@ -21,6 +21,10 @@ var wkhtmltopdf = {
 		'0.10.0_beta5': '.0.10.0_beta5',
 		'0.11.0rc1': '.0.11.0rc1'
 	},
+	/* helper function
+	wkhtmltopdf = function(url, parameters, version){
+		
+	},*/
 	// a server with express... ah such a nice library!
 	app = express.createServer(express.logger());
 // _configure_ all the parameters!
