@@ -13,8 +13,10 @@ var wkhtmltopdf = {
 	},
 	versions = {
 		'default': '',
+		'099': '.0.9.9',
+		'096': '.0.9.6',
 		'10': '.0.10.0_beta5',
-		'11': '.0.11.0rc1'
+		'11': ''
 	},
 	// some flags for nicer PDFs
 	pflags = '-B %(B)d -L %(L)d -R %(R)d -T %(T)d -O %(O)s -q --no-outline --disable-external-links',
