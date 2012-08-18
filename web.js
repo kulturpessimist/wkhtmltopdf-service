@@ -7,8 +7,13 @@ var express = require('express'),
 // in linux we use our own binary 
 var wkhtmltopdf = {
 		'darwin': '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf',
-		'linux': './bin/wkhtmltopdf-amd64',
+		'linux':  './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
+	},
+	versions = {
+		'default': '',
+		'10': '.0.10.0_beta5',
+		'11': '.0.11.0rc1'
 	},
 	// some flags for nicer PDFs
 	// @todo we sould make this a request parameter in the future
@@ -25,8 +30,9 @@ app.configure(function(){
 	app.use('/assets', express.static(__dirname + '/assets'));
 });
 // our namespace sould be api
-app.get('/api/:url?', function(request, response) {
+app.get('/api/:url/:version?', function(request, response) {
 	var url = request.params.url || '';
+	var version = request.params.version || 'default';
 	// do we have a url?
 	if(url !== '' ){
 		// lets hash the url so we have a unique filename
@@ -34,7 +40,7 @@ app.get('/api/:url?', function(request, response) {
 		var hex = sha1_hash.digest('hex');
 		// lets exec the wkhtmltopdf command
 		// this is where the magic happens... lol
-		var child = exec(wkhtmltopdf[os.platform()]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
+		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
 			function (error, stdout, stderr) {
 				if (error !== null) {
 					// is everything goes wrong!

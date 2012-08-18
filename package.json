@@ -7,6 +7,6 @@
 	},
 	"dependencies": {
 		"express": "2.5.6",
-		"jake": "0.2.33"
+		"jake": "0.3.14"
 	}
 }
