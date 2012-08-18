@@ -14,10 +14,11 @@ var wkhtmltopdf = {
 	versions = {
 		'darwin':'',
 		'default': '.0.10.0_beta5',
-		'099': '.0.9.9',
-		'096': '.0.9.6',
-		'10': '.0.10.0_beta5',
-		'11': '.0.11.0rc1'
+		//
+		'0.9.9': '.0.9.9',
+		'0.9.6': '.0.9.6',
+		'0.10.0_beta5': '.0.10.0_beta5',
+		'0.11.0rc1': '.0.11.0rc1'
 	},
 	// a server with express... ah such a nice library!
 	app = express.createServer(express.logger());
