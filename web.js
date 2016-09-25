@@ -9,24 +9,23 @@ var wkhtmltopdf = {
 		'darwin': '/Applications/wkhtmltopdf.app/Contents/MacOS/wkhtmltopdf',
 		'linux':  './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
-	},
-	// on heroku we host 4 different versions of wkhtmltopdf
-	// on darwin we just use wkhtmltopdf.app
-	versions = {
+	};
+
+// on heroku we host 4 different versions of wkhtmltopdf
+// on darwin we just use wkhtmltopdf.app
+var versions = {
 		'darwin':'',
-		'default': '.0.10.0_beta5',
+		'default': '.0.12.3',
 		//
 		'0.9.9': '.0.9.9',
 		'0.9.6': '.0.9.6',
 		'0.10.0_beta5': '.0.10.0_beta5',
-		'0.11.0rc1': '.0.11.0rc1'
-	},
-	/* helper function
-	wkhtmltopdf = function(url, parameters, version){
-		
-	},*/
+		'0.11.0rc1': '.0.11.0rc1',
+		'0.12.3': '.0.12.3'
+	};
+
 	// a server with express... ah such a nice library!
-	app = express.createServer(express.logger());
+var app = express.createServer(express.logger());
 // _configure_ all the parameters!
 app.configure(function(){
 	app.use(express.methodOverride());
