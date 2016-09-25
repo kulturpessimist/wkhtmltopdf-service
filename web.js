@@ -42,7 +42,7 @@ app.get('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
 	var version = (os.platform()=='darwin'?'darwin':'default');
 	// some flags for nicer PDFs
-	var flags = '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --disable-external-links';
+	var flags = '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 350';
 	// do we have a url?
 	if(url !== '' ){
 		// lets hash the url so we have a unique filename
