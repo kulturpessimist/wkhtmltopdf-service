@@ -25,7 +25,7 @@ var versions = {
 	};
 
 	// a server with express... ah such a nice library!
-var app = express.createServer();
+var app = express.createServer(express.logger());
 // _configure_ all the parameters!
 app.configure(function(){
 	app.use(express.methodOverride());
