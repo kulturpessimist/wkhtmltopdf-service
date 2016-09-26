@@ -6,32 +6,9 @@
 	<title>wkhtmltopdf service</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-	<header>
-		<div class="ribbon">
-			<div class="ribbon-stitches-top"></div>		
-			<strong class="ribbon-content">
-				<h1>wkhtmltopdf service</h1>
-			</strong>
-			<div class="ribbon-stitches-bottom"></div>
-		</div>
-	</header>
-	<div role="main" class="main">
-		<div class="top">
-			<br/><br/><br/><br/><br/>
-			<h2>...just make pdf's easy.</h2>
-			<br/>
-			<p>Have you ever wondered that there is no easy-peasy web service to make pdf's in the cloud?</p>
-			<p>And the <a href="http://docraptor.com/" target="_blank">one</a> or <a href="http://pdfcrowd.com/html-to-pdf-api/" target="_blank">two</a> nice services out there are way to expensive?</p>
-			<p>Jeah? Just use <a href="http://code.google.com/p/wkhtmltopdf/" target="_blank">wkhtmltopdf</a> and relax<p>
-			
-			<div class="tabbable tabs-below">
-  				<div class="tab-content">
-					<div class="tab-pane active" id="GET">
-						<pre>
+<pre>
 __REQUEST__
   GET /api/{{url}}
 					
@@ -39,10 +16,9 @@ __REQUEST__
 
 __RESPONSE__
   Binary PDF Object		
-						</pre>
-					</div>
-					<div class="tab-pane" id="POST">
-						<pre>
+</pre>
+
+<pre>
 __REQUEST__
   POST /api/{{url}}
 
@@ -53,6 +29,7 @@ __REQUEST__
       Command line parameters for the wkhtmltopdf app. 
     version: 
       choose version to use. possible values are:
+        0.12.3
         0.11.0rc1
         0.10.0_beta5
         0.9.9
@@ -60,73 +37,7 @@ __REQUEST__
 
 __RESPONSE__
   Binary PDF Object		
-						</pre>
-					</div>
-  				</div>
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#GET" data-toggle="tab">GET</a></li>
-					<li class=""><a href="#POST" data-toggle="tab">POST</a></li>
-				</ul>
-			</div>
-			
-			<form class="form-inline hide" id="theform" action="" method="post">
-				<h2>You want to try it?</h2>
-					
-					<div class="input-prepend">
-						<span class="add-on">Parameters</span><input name="parameters" class="span4" type="text"
-						  value="-B 0 -L 0 -R 0 -T 0 -O Portrait -q --disable-external-links" />
-						<select class="" style="width:117px;" name="version">
-							<optgroup label="Version">
-								<option value="0.11.0rc1">0.11.0rc1</option>
-								<option value="0.10.0_beta5" selected="selected">0.10.0_beta5</option>
-								<option value="0.9.9">0.9.9</option>
-								<option value="0.9.6">0.9.6</option>													
-							</optgroup>
-						</select>
-					</div>
-					<div class="input-prepend input-append">
-						<span class="add-on unified-label">URL</span><input 
-							class="span5" id="url" placeholder="Just try it!" type="text"><button 
-							class="btn btn-inverse ued-label" id="action" type="button">Go!</button>			
-					</div>
-	
-				</div>
-				
-			</form>
-		
-			<footer>
-				&copy; 2012 <a href="http://www.con.sume.org" target="_blank">con.sume.org</a>
-			</footer>
-		<div>
-	</div>
+</pre>
 
-	<script src="/libs.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$(function() {
-			$(document).shortcuts({
-				"ALT U": {
-					keys: [18, 85], desc: "Show URL Input.",
-					func: function() { 	$('.form-inline').slideDown() }
-				}
-			});
-			$('#url').val(document.location.href);
-			$('#action').click(function(){
-				var encoded = encodeURIComponent( $('#url').val() );
-				//document.location.href = "/api/"+encoded;
-				$('#theform').attr('action', '/api/'+encoded);
-				$('#theform').submit();
-			});
-			
-			if( document.location.hash.indexOf('open-form') > -1){
-				$('.form-inline').slideDown();
-			}
-		});
-	</script>
-	<script type="text/javascript">
-		var _gaq=[['_setAccount','UA-4234390-6'],['_trackPageview']];
-		(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-		g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-		s.parentNode.insertBefore(g,s)}(document,'script'));
-	</script>
 </body>
 </html>
