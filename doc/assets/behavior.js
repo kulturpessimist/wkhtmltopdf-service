@@ -9,81 +9,33 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "type": "file",
       "data": {
         "language": {
-          "nameMatchers": [".md"],
+          "nameMatchers": [".md", ".markdown", ".mkd", ".mkdn", ".mdown"],
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/alex/Documents/github/wkhtmltopdf-service/README.md",
+        "sourcePath": "/Users/alex/Documents/Development/not a company/wkhtmltopdf-service/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "wkhtmltopdf",
-            "slug": "wkhtmltopdf",
-            "isFileHeader": true
-          },
-          "depth": 1
-        },
-        "title": "wkhtmltopdf"
+        "pageTitle": "index",
+        "title": "index"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Used Libraries &amp; Tools",
-            "slug": "used-libraries-amp-tools"
-          },
-          "depth": 1
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Documentation",
-            "slug": "documentation"
-          },
-          "depth": 1
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "package.json",
-            "slug": "packagejson"
-          },
-          "depth": 1
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "wkhtmltopdf parameters",
-            "slug": "wkhtmltopdf-parameters"
-          },
-          "depth": 1
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Licence",
-            "slug": "licence"
-          },
-          "depth": 1
-        }
-      ]
+      "depth": 1
     }, {
       "type": "file",
       "data": {
         "language": {
           "nameMatchers": [".js"],
           "pygmentsLexer": "javascript",
+          "multiLineComment": ["/*", "*", "*/"],
           "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/alex/Documents/github/wkhtmltopdf-service/web.js",
+        "sourcePath": "/Users/alex/Documents/Development/not a company/wkhtmltopdf-service/web.js",
         "projectPath": "web.js",
         "targetPath": "web",
+        "pageTitle": "web",
         "title": "web"
       },
       "depth": 1,
@@ -117,7 +69,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     var currentNodeBottom, currentNodeTop;
     currentNodeTop = currentNode$.offset().top - toc$.children(':visible').first().offset().top;
     currentNodeBottom = currentNodeTop + currentNode$.children('.label').height();
-    if (currentNodeTop < toc$.scrollTop()) toc$.scrollTop(currentNodeTop);
+    if (currentNodeTop < toc$.scrollTop()) {
+      toc$.scrollTop(currentNodeTop);
+    }
     if (currentNodeBottom > toc$.scrollTop() + toc$.height()) {
       return toc$.scrollTop(currentNodeBottom - toc$.height());
     }
@@ -132,7 +86,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         currentNode$.removeClass('expanded');
       } else {
         parents$ = currentNode$.parents('li');
-        if (parents$.length > 0) selectNode(parents$.first());
+        if (parents$.length > 0) {
+          selectNode(parents$.first());
+        }
       }
     }
     return focusCurrentNode();
@@ -146,13 +102,15 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   };
 
   selectNodeByDocumentPath = function(documentPath, headerSlug) {
-    var link, urlChunks, _i, _len, _ref;
-    if (headerSlug == null) headerSlug = null;
+    var j, len, link, ref, urlChunks;
+    if (headerSlug == null) {
+      headerSlug = null;
+    }
     currentNode$ = fileMap[documentPath];
     if (headerSlug) {
-      _ref = currentNode$.find('.outline a');
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        link = _ref[_i];
+      ref = currentNode$.find('.outline a');
+      for (j = 0, len = ref.length; j < len; j++) {
+        link = ref[j];
         urlChunks = $(link).attr('href').split('#');
         if (urlChunks[1] === headerSlug) {
           currentNode$ = $(link).parents('li').first();
@@ -166,14 +124,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   };
 
   moveCurrentNode = function(up) {
-    var i, newIndex, node, visibleNodes$, _len;
+    var i, j, len, newIndex, node, visibleNodes$;
     visibleNodes$ = toc$.find('li:visible:not(.filtered)');
     newIndex = 0;
-    for (i = 0, _len = visibleNodes$.length; i < _len; i++) {
+    for (i = j = 0, len = visibleNodes$.length; j < len; i = ++j) {
       node = visibleNodes$[i];
       if (node === currentNode$[0]) {
         newIndex = up ? i - 1 : i + 1;
-        if (newIndex < 0) newIndex = 0;
+        if (newIndex < 0) {
+          newIndex = 0;
+        }
         if (newIndex > visibleNodes$.length - 1) {
           newIndex = visibleNodes$.length - 1;
         }
@@ -186,7 +146,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   visitCurrentNode = function() {
     var labelLink$;
     labelLink$ = currentNode$.children('a.label');
-    if (labelLink$.length > 0) return window.location = labelLink$.attr('href');
+    if (labelLink$.length > 0) {
+      return window.location = labelLink$.attr('href');
+    }
   };
 
   MAX_FILTER_SIZE = 10;
@@ -202,79 +164,85 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   currentQuery = '';
 
   searchNodes = function(queryString) {
-    var c, filtered, matched, matcher, nodeInfo, p, _i, _j, _k, _len, _len2, _len3, _results;
+    var c, filtered, j, k, l, len, len1, len2, matched, matcher, nodeInfo, p, results;
     queryString = queryString.toLowerCase().replace(/\s+/, '');
-    if (queryString === currentQuery) return;
+    if (queryString === currentQuery) {
+      return;
+    }
     currentQuery = queryString;
-    if (queryString === '') return clearFilter();
+    if (queryString === '') {
+      return clearFilter();
+    }
     matcher = new RegExp(((function() {
-      var _i, _len, _results;
-      _results = [];
-      for (_i = 0, _len = queryString.length; _i < _len; _i++) {
-        c = queryString[_i];
-        _results.push(c.replace(/[-[\]{}()*+?.,\\^$|#\s]/, "\\$&"));
+      var j, len, results;
+      results = [];
+      for (j = 0, len = queryString.length; j < len; j++) {
+        c = queryString[j];
+        results.push(c.replace(/[-[\]{}()*+?.,\\^$|#\s]/, "\\$&"));
       }
-      return _results;
+      return results;
     })()).join('.*'));
     matched = [];
     filtered = [];
-    for (_i = 0, _len = searchableNodes.length; _i < _len; _i++) {
-      nodeInfo = searchableNodes[_i];
+    for (j = 0, len = searchableNodes.length; j < len; j++) {
+      nodeInfo = searchableNodes[j];
       if (matcher.test(nodeInfo[0])) {
         matched.push(nodeInfo);
       } else {
         filtered.push(nodeInfo);
       }
     }
-    if (matched.length > MAX_FILTER_SIZE) return clearFilter();
+    if (matched.length > MAX_FILTER_SIZE) {
+      return clearFilter();
+    }
     nav$.addClass('searching');
-    for (_j = 0, _len2 = filtered.length; _j < _len2; _j++) {
-      nodeInfo = filtered[_j];
+    for (k = 0, len1 = filtered.length; k < len1; k++) {
+      nodeInfo = filtered[k];
       nodeInfo[1].removeClass('matched-child');
       nodeInfo[1].addClass('filtered');
       clearHighlight(nodeInfo[2]);
     }
-    _results = [];
-    for (_k = 0, _len3 = matched.length; _k < _len3; _k++) {
-      nodeInfo = matched[_k];
+    results = [];
+    for (l = 0, len2 = matched.length; l < len2; l++) {
+      nodeInfo = matched[l];
       nodeInfo[1].removeClass('filtered matched-child');
       nodeInfo[1].addClass('matched');
       highlightMatch(nodeInfo[2], queryString);
-      _results.push((function() {
-        var _l, _len4, _ref, _results2;
-        _ref = nodeInfo[1].parents('li');
-        _results2 = [];
-        for (_l = 0, _len4 = _ref.length; _l < _len4; _l++) {
-          p = _ref[_l];
-          _results2.push($(p).addClass('matched-child'));
+      results.push((function() {
+        var len3, m, ref, results1;
+        ref = nodeInfo[1].parents('li');
+        results1 = [];
+        for (m = 0, len3 = ref.length; m < len3; m++) {
+          p = ref[m];
+          results1.push($(p).addClass('matched-child'));
         }
-        return _results2;
+        return results1;
       })());
     }
-    return _results;
+    return results;
   };
 
   clearFilter = function() {
-    var nodeInfo, _i, _len, _results;
+    var j, len, nodeInfo, results;
     nav$.removeClass('searching');
     currentQuery = '';
-    _results = [];
-    for (_i = 0, _len = searchableNodes.length; _i < _len; _i++) {
-      nodeInfo = searchableNodes[_i];
+    results = [];
+    for (j = 0, len = searchableNodes.length; j < len; j++) {
+      nodeInfo = searchableNodes[j];
       nodeInfo[1].removeClass('filtered matched-child');
-      _results.push(clearHighlight(nodeInfo[2]));
+      results.push(clearHighlight(nodeInfo[2]));
     }
-    return _results;
+    return results;
   };
 
   highlightMatch = function(text$, queryString) {
-    var char, foundIndex, furthestIndex, lowerText, markedText, nodeText, _i, _len;
+    var char, foundIndex, furthestIndex, j, len, lowerText, markedText, nodeText;
     nodeText = text$.text();
     lowerText = nodeText.toLowerCase();
     markedText = '';
     furthestIndex = 0;
-    for (_i = 0, _len = queryString.length; _i < _len; _i++) {
-      char = queryString[_i];
+    for (j = 0, len = queryString.length; j < len; j++) {
+      char = queryString[j];
       foundIndex = lowerText.indexOf(char, furthestIndex);
       markedText += nodeText.slice(furthestIndex, foundIndex) + ("<em>" + nodeText[foundIndex] + "</em>");
       furthestIndex = foundIndex + 1;
@@ -289,56 +257,68 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   fileMap = {};
 
   buildNav = function(metaInfo) {
-    var node, sourceURL, _i, _len;
+    var j, len, node, sourceURL;
     nav$ = $("<nav>\n  <ul class=\"tools\">\n    <li class=\"toggle\">Table of Contents</li>\n    <li class=\"search\">\n      <input id=\"search\" type=\"search\" autocomplete=\"off\"/>\n    </li>\n  </ul>\n  <ol class=\"toc\"/>\n  </div>\n</nav>").appendTo($('body'));
     toc$ = nav$.find('.toc');
     if (metaInfo.githubURL) {
       if (metaInfo.documentPath === 'index') {
         sourceURL = metaInfo.githubURL;
       } else {
-        sourceURL = "" + metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
+        sourceURL = metaInfo.githubURL + "/blob/master/" + metaInfo.projectPath;
       }
       nav$.find('.tools').prepend("<li class=\"github\">\n  <a href=\"" + sourceURL + "\" title=\"View source on GitHub\">\n    View source on GitHub\n  </a>\n</li>");
     }
-    for (_i = 0, _len = tableOfContents.length; _i < _len; _i++) {
-      node = tableOfContents[_i];
+    for (j = 0, len = tableOfContents.length; j < len; j++) {
+      node = tableOfContents[j];
       toc$.append(buildTOCNode(node, metaInfo));
     }
     return nav$;
   };
 
   buildTOCNode = function(node, metaInfo) {
-    var c, children$, discloser$, label$, node$, _i, _len, _ref, _ref2, _ref3;
+    var c, children$, clickLabel, discloser, discloser$, j, label$, len, node$, ref, ref1, ref2;
     node$ = $("<li class=\"" + node.type + "\"/>");
+    discloser = null;
     switch (node.type) {
       case 'file':
         node$.append("<a class=\"label\" href=\"" + metaInfo.relativeRoot + node.data.targetPath + ".html\" title=\"" + node.data.projectPath + "\"><span class=\"text\">" + node.data.title + "</span></a>");
+        clickLabel = function(evt) {
+          if (evt.target === discloser) {
+            node$.toggleClass('expanded');
+            evt.preventDefault();
+            return false;
+          }
+          return selectNode(node$);
+        };
         break;
       case 'folder':
-        node$.append("<span class=\"label\"><span class=\"text\">" + node.data.title + "</span></span>");
+        node$.append("<a class=\"label\" href=\"#\"><span class=\"text\">" + node.data.title + "</span></a>");
+        clickLabel = function(evt) {
+          selectNode(node$);
+          node$.toggleClass('expanded');
+          evt.preventDefault();
+          return false;
+        };
     }
-    if (((_ref = node.children) != null ? _ref.length : void 0) > 0) {
+    if (((ref = node.children) != null ? ref.length : void 0) > 0) {
       children$ = $('<ol class="children"/>');
-      _ref2 = node.children;
-      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-        c = _ref2[_i];
+      ref1 = node.children;
+      for (j = 0, len = ref1.length; j < len; j++) {
+        c = ref1[j];
         children$.append(buildTOCNode(c, metaInfo));
       }
       node$.append(children$);
     }
     label$ = node$.find('> .label');
-    label$.click(function() {
-      return selectNode(node$);
-    });
+    label$.click(clickLabel);
     discloser$ = $('<span class="discloser"/>').prependTo(label$);
-    if (!(((_ref3 = node.children) != null ? _ref3.length : void 0) > 0)) {
+    if (!(((ref2 = node.children) != null ? ref2.length : void 0) > 0)) {
       discloser$.addClass('placeholder');
     }
-    discloser$.click(function(evt) {
-      node$.toggleClass('expanded');
-      return evt.preventDefault();
-    });
-    if (node.type === 'file') fileMap[node.data.targetPath] = node$;
+    discloser = discloser$.get(0);
+    if (node.type === 'file') {
+      fileMap[node.data.targetPath] = node$;
+    }
     appendSearchNode(node$);
     return node$;
   };
@@ -360,7 +340,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     });
     lastMousedownTimestamp = null;
     nav$.mousedown(function(evt) {
-      if (evt.target !== toggle$[0]) return lastMousedownTimestamp = evt.timeStamp;
+      if (evt.target !== toggle$[0]) {
+        return lastMousedownTimestamp = evt.timeStamp;
+      }
     });
     search$.blur(function(evt) {
       if (evt.timeStamp - lastMousedownTimestamp < 10) {
@@ -408,7 +390,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     search$.bind('keyup search', function(evt) {
       return searchNodes(search$.val());
     });
-    return search$.keydown(function(evt) {
+    search$.keydown(function(evt) {
       if (evt.keyCode === 27) {
         if (search$.val().trim() === '') {
           return search$.blur();
@@ -416,6 +398,15 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           return search$.val('');
         }
       }
+    });
+    return $('.code.folded').each(function(index, code) {
+      var code$;
+      code$ = $(code);
+      return code$.click(function(evt) {
+        code$.toggleClass('folded');
+        evt.preventDefault();
+        return false;
+      });
     });
   });
 

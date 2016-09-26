@@ -2,7 +2,6 @@
 var express = require('express'),
 	mO 		= require('method-override'),
 	bP 		= require('body-parser'),
-
 	crypto	= require('crypto'),
 	exec	= require('child_process').exec,
 	os		= require('os');
@@ -13,18 +12,17 @@ var wkhtmltopdf = {
 		'linux':  './bin/wkhtmltopdf-amd64',
 		'linux2': './bin/wkhtmltopdf-amd64'
 	};
-
 // on heroku we host 4 different versions of wkhtmltopdf
 // on darwin we just use wkhtmltopdf.app
 var versions = {
 		'darwin': 		'',
 		'default': 		'.0.12.3',
-		//
 		'0.9.9': 		'.0.9.9',
 		'0.11.0rc1': 	'.0.11.0rc1',
 		'0.12.3': 		'.0.12.3'
 	};
 // the actual function to render the PDF
+// @TODO: Provide name for file and maybe hooks with file actions....
 var renderPDF = function(url, cb, params){
 	var version = (os.platform()=='darwin'?'darwin':'default');
 	var params = params || '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 350';
@@ -57,6 +55,12 @@ var renderPDF = function(url, cb, params){
 		}
 	);
 }
+//	                                                       
+//   _____ __ __ _____ _____ _____ _____ _____    __ _____ 
+//  |   __|  |  |  _  | __  |   __|   __|   __|__|  |   __|
+//  |   __|-   -|   __|    -|   __|__   |__   |  |  |__   |
+//  |_____|__|__|__|  |__|__|_____|_____|_____|_____|_____|
+//	                                                       
 // a server with express... ah such a nice library!
 var app = express();
 // _configure_ all the parameters!
@@ -90,39 +94,19 @@ app.get('/api/:url?', function(request, response) {
 // with optional parameters for the padding
 app.post('/api/:url?', function(request, response) {
 	var url = request.params.url || '';
-	console.log(request.body);
-	// no version support on darwin, but on linux
-	var version = (os.platform()=='darwin'?'darwin':request.body.version||'default');
 	// are any parameters provided?
 	// no escaping, but whatever...
 	var flags = request.body.parameters;
 	// do we have a url?
 	if(url !== '' ){
-		// lets hash the url so we have a unique filename
-		var sha1_hash = crypto.createHash('sha1').update(url);
-		var hex = sha1_hash.digest('hex');
-		// lets exec the wkhtmltopdf command
-		// but first get a timestamp to messure the performance
-		var start_time = new Date().getTime();
-		// this is where the magic happens... lol
-		var child = exec(wkhtmltopdf[os.platform()]+versions[version]+' '+flags+" "+url+' ./assets/'+hex+'.pdf', 
-			// heroku gives us 30 seconds, so we do it in 20 seconds
-			{ timeout: 20000, killSignal: 'SIGTERM' },
-			function (error, stdout, stderr) {
-				if (error !== null) {
-					// is everything goes wrong!
-					// show the user/client the error and leave him alone
-					console.log('exec error: ' + error);
-					response.send('exec error: '+ JSON.stringify(error));
-				}else{
-					// ah, great it worked!
-					// how much time did we need? log it to console
-					console.log( '###', 'processing took', (new Date().getTime())-start_time, 'ms' );
-					// send the user/client to the asset
-					response.redirect('/assets/'+hex+'.pdf');
-				}
+		renderPDF(url, function(error, success){
+			if (error !== null) {
+				console.log('exec error: ' + error);
+				response.send('exec error: '+ JSON.stringify(error));		
+			}else{
+				response.redirect('/assets/'+success+'.pdf');
 			}
-		);
+		}, flags);
 	}else{
 		// hmmm, no url? than go back to begin
 		response.redirect('/');

@@ -5,8 +5,12 @@
 		"node": "6.6.0"
 	},
 	"dependencies": {
+		"groc": "0.8.0",
 		"express": "4.14.0",
 		"body-parser": "1.15.2",
 		"method-override": "2.3.6"
+	},
+	"scripts":{
+		"doc": "node_modules/.bin/groc README.md web.js; open doc/index.html"
 	}
 }

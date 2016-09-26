@@ -8,15 +8,21 @@ Documentation is generated with the awesome [groc](https://github.com/nevir/groc
 You can find alle docs for this project in the folder "/doc"
 
 # package.json
-	
+		
 	{
 		"name": "wkhtmltopdf-service",
-		"version": "1.0.0",
+		"version": "0.6.0",
 		"engines": {
 			"node": "6.6.0"
 		},
 		"dependencies": {
-			"express": "2.5.11"
+			"groc": "0.8.0",
+			"express": "4.14.0",
+			"body-parser": "1.15.2",
+			"method-override": "2.3.6"
+		},
+		"scripts":{
+			"doc": "node_modules/.bin/groc README.md web.js; open doc/index.html"
 		}
 	}
 	
