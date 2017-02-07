@@ -70,7 +70,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/assets', express.static(__dirname + '/assets'));
 
 // our namespace sould be api
-app.get('/api/', function(request, response) {
+app.get('/', function(request, response) {
 	var url = request.params.url || request.query.url || '';
 	console.log('render ' + url);
 	// do we have a url?
@@ -85,7 +85,7 @@ app.get('/api/', function(request, response) {
 		}, null);
 	}else{
 		// hmmm, no url? than go back to begin
-		response.redirect('/');
+		response.redirect('/index.html');
 	}
 });
 // launch our server on the ENV Port or 3000...

@@ -10,30 +10,9 @@
 <body>
 <pre>
 __REQUEST__
-  GET /api/{{url}}
+  GET /api/?url={{url}}
 					
-  {{url}} URL you want converted to PDF as URL encoded String
-
-__RESPONSE__
-  Binary PDF Object		
-</pre>
-
-<pre>
-__REQUEST__
-  POST /api/{{url}}
-
-  {{url}} URL you want converted to PDF as URL encoded String
-
-  Optional multipart/form-data Parameters:
-    parameters:
-      Command line parameters for the wkhtmltopdf app. 
-    version: 
-      choose version to use. possible values are:
-        0.12.3
-        0.11.0rc1
-        0.10.0_beta5
-        0.9.9
-        0.9.6
+  {{url}} URL you want converted to PDF
 
 __RESPONSE__
   Binary PDF Object		
