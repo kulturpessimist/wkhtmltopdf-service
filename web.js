@@ -70,7 +70,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/assets', express.static(__dirname + '/assets'));
 
 // our namespace sould be api
-app.get('/', function(request, response) {
+app.get('/pdf', function(request, response) {
 	var url = request.query.url || '';
 	var pam = request.query.params || null;
 	console.log('render ', url, 'with', pam);
