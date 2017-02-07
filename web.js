@@ -1,7 +1,5 @@
 // _require_ all the libraries!
 var express = require('express'),
-	mO 		= require('method-override'),
-	bP 		= require('body-parser'),
 	crypto	= require('crypto'),
 	exec	= require('child_process').exec,
 	os		= require('os');
@@ -65,19 +63,16 @@ var renderPDF = function(url, cb, params){
 // a server with express... ah such a nice library!
 var app = express();
 // _configure_ all the parameters!
-app.use(mO());
 // static files for our "frontend"
 app.use(express.static(__dirname + '/public'));
 // static files for our assets. 
 // remember: files on heroku are just temporary -> http://goo.gl/5qWdt
 app.use('/assets', express.static(__dirname + '/assets'));
-// and last but not least the body Parser for our post route
-app.use(bP());
+
 // our namespace sould be api
 app.get('/api/', function(request, response) {
 	var url = request.params.url || request.query.url || '';
 	console.log('render ' + url);
-
 	// do we have a url?
 	if(url !== '' ){
 		renderPDF(url, function(error, success){
@@ -88,29 +83,6 @@ app.get('/api/', function(request, response) {
 				response.redirect('/assets/'+success+'.pdf');
 			}
 		}, null);
-	}else{
-		// hmmm, no url? than go back to begin
-		response.redirect('/');
-	}
-});
-// now exactly the same for post requests 
-// with optional parameters for the padding
-app.post('/api/:url?', function(request, response) {
-	var url = request.params.url || request.query.url || '';
-	console.log('render ' + url);
-	// are any parameters provided?
-	// no escaping, but whatever...
-	var flags = request.body.parameters;
-	// do we have a url?
-	if(url !== '' ){
-		renderPDF(url, function(error, success){
-			if (error !== null) {
-				console.log('exec error: ' + error);
-				response.send('exec error: '+ JSON.stringify(error));		
-			}else{
-				response.redirect('/assets/'+success+'.pdf');
-			}
-		}, flags);
 	}else{
 		// hmmm, no url? than go back to begin
 		response.redirect('/');
