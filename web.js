@@ -71,8 +71,9 @@ app.use('/assets', express.static(__dirname + '/assets'));
 
 // our namespace sould be api
 app.get('/', function(request, response) {
-	var url = request.params.url || request.query.url || '';
-	console.log('render ' + url);
+	var url = request.query.url || '';
+	var pam = request.query.params || null;
+	console.log('render ', url, 'with', pam);
 	// do we have a url?
 	if(url !== '' ){
 		renderPDF(url, function(error, success){
@@ -82,7 +83,7 @@ app.get('/', function(request, response) {
 			}else{
 				response.redirect('/assets/'+success+'.pdf');
 			}
-		}, null);
+		}, pam);
 	}else{
 		// hmmm, no url? than go back to begin
 		response.redirect('/index.html');
