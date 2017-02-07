@@ -74,7 +74,7 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(bP());
 // our namespace sould be api
 app.get('/api/:url?', function(request, response) {
-	var url = request.params.url || '';
+	var url = request.params.url || request.query.url || '';
 	// do we have a url?
 	if(url !== '' ){
 		renderPDF(url, function(error, success){
@@ -93,7 +93,7 @@ app.get('/api/:url?', function(request, response) {
 // now exactly the same for post requests 
 // with optional parameters for the padding
 app.post('/api/:url?', function(request, response) {
-	var url = request.params.url || '';
+	var url = request.params.url || request.query.url || '';
 	// are any parameters provided?
 	// no escaping, but whatever...
 	var flags = request.body.parameters;
