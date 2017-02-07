@@ -22,12 +22,12 @@ var versions = {
 	};
 // the actual function to render the PDF
 // @TODO: Provide name for file and maybe hooks with file actions....
-var renderPDF = function(url, cb, params){
+var renderPDF = function(url, cb, params, filename){
 	var version = (os.platform()=='darwin'?'darwin':'default');
 	var params = params || '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 350';
 	// lets hash the url so we have a unique filename
-	var sha1_hash = crypto.createHash('sha1').update(url);
-	var name = sha1_hash.digest('hex');
+	var sha1_hash = crypto.createHash('sha1').update(url+'__'+params);
+	var name = filename || sha1_hash.digest('hex');
 	// lets exec the wkhtmltopdf command
 	// but first get a timestamp to messure the performance
 	var start_time = new Date().getTime();
@@ -73,7 +73,8 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.get('/pdf', function(request, response) {
 	var url = request.query.url || '';
 	var pam = request.query.params || null;
-	console.log('render ', url, 'with', pam);
+	var name = request.query.name || '';
+	console.log('render ', url, 'as', name, 'with', pam);
 	// do we have a url?
 	if(url !== '' ){
 		renderPDF(url, function(error, success){
@@ -83,7 +84,7 @@ app.get('/pdf', function(request, response) {
 			}else{
 				response.redirect('/assets/'+success+'.pdf');
 			}
-		}, pam);
+		}, pam, name);
 	}else{
 		// hmmm, no url? than go back to begin
 		response.redirect('/index.html');
