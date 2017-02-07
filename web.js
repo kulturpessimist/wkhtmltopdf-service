@@ -24,7 +24,7 @@ var versions = {
 // @TODO: Provide name for file and maybe hooks with file actions....
 var renderPDF = function(url, cb, params, filename){
 	var version = (os.platform()=='darwin'?'darwin':'default');
-	var params = params || '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 350';
+	var params = params || '-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 999 --zoom 1.28';
 	// lets hash the url so we have a unique filename
 	var sha1_hash = crypto.createHash('sha1').update(url+'__'+params);
 	var name = filename || sha1_hash.digest('hex');
