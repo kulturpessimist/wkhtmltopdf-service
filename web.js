@@ -16,10 +16,11 @@ var wkhtmltopdf = {
 // on darwin we just use wkhtmltopdf.app
 var versions = {
 		'darwin': 		'',
-		'default': 		'.0.12.3',
+		'default': 		'.0.12.4',
 		'0.9.9': 		'.0.9.9',
 		'0.11.0rc1': 	'.0.11.0rc1',
 		'0.12.3': 		'.0.12.3'
+		'0.12.4': 		'.0.12.4'
 	};
 // the actual function to render the PDF
 // @TODO: Provide name for file and maybe hooks with file actions....
@@ -73,8 +74,10 @@ app.use('/assets', express.static(__dirname + '/assets'));
 // and last but not least the body Parser for our post route
 app.use(bP());
 // our namespace sould be api
-app.get('/api/:url?', function(request, response) {
+app.get('/api/', function(request, response) {
 	var url = request.params.url || request.query.url || '';
+	console.log('render ' + url);
+
 	// do we have a url?
 	if(url !== '' ){
 		renderPDF(url, function(error, success){
@@ -94,6 +97,7 @@ app.get('/api/:url?', function(request, response) {
 // with optional parameters for the padding
 app.post('/api/:url?', function(request, response) {
 	var url = request.params.url || request.query.url || '';
+	console.log('render ' + url);
 	// are any parameters provided?
 	// no escaping, but whatever...
 	var flags = request.body.parameters;
