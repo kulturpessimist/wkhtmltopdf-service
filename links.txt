@@ -1,7 +1,0 @@
-https://still-chamber-28410.herokuapp.com/pdf/?url=http://pdf.nb.vg/assets/naturebalance/template.html&params=-B 0 -L 0 -R 0 -T 0 -O Portrait -q --image-quality 80 --disable-external-links --print-media-type --javascript-delay 999 --zoom 1.28
-
-
-
-https://still-chamber-28410.herokuapp.com/pdf/?url=http://pdf.nb.vg/assets/naturebalance/template.html
-https://still-chamber-28410.herokuapp.com/pdf/?url=http://pdf.nb.vg/assets/bergwald/template.html
-https://still-chamber-28410.herokuapp.com/pdf/?url=http://pdf.nb.vg/assets/printer/template.html
