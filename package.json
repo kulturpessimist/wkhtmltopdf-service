@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"groc": "0.8.0",
-		"express": "4.14.0"
+		"express": "4.20.0"
 	},
 	"scripts":{
 		"doc": "node_modules/.bin/groc README.md web.js; open doc/index.html"
